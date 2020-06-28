@@ -1,0 +1,10 @@
+type Link {
+    url: String!
+    name: String!
+    description: String!
+    completed: Boolean
+}
+
+type Query {
+    allLinks: [Link!]!
+}

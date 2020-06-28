@@ -5,11 +5,12 @@ exports.handler = async (event) => {
     if (event.httpMethod !== 'PUT') {
         return formatResponse(405, { err: 'Method not supported' });
     }
-    const { id, completed, url, description, name } = JSON.parse(event.body);
+    const { link } = JSON.parse(event.body);
+    const { _id: id, archived, url, description, name } = link;
     try {
         const { updateLink: updatedLink } = await sendQuery(UPDATE_LINK, {
             id,
-            completed,
+            archived,
             url,
             description,
             name,

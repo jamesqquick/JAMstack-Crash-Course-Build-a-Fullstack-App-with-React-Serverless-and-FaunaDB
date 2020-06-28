@@ -2,7 +2,7 @@ type Link {
     url: String!
     name: String!
     description: String!
-    completed: Boolean
+    archived: Boolean
 }
 
 type Query {

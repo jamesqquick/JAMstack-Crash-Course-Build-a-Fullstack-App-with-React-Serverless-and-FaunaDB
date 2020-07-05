@@ -1,4 +1,4 @@
-import Reactfrom 'react';
+import React from 'react';
 import LinkCard from './LinkCard';
 
 export default function LinkList({ links, linkDeleted, linkArchived }) {

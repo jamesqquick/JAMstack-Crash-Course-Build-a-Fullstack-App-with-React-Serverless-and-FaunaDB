@@ -18,20 +18,17 @@ function App() {
         }
     };
 
-    const linkDeleted = (id) => {
-        setLinks((links) => links.filter((link) => link._id !== id));
-    };
-
     const addLink = (link) => {
         setLinks((links) => [link, ...links]);
     };
     return (
         <div className="container py-5">
-            <h1 className="text-center">List O' Links</h1>
+            <h1 className="text-center mb-5">List O' Links</h1>
             <LinkForm linkCreated={addLink} />
+
             <LinkList
                 links={links}
-                linkDeleted={linkDeleted}
+                linkDeleted={loadLinks}
                 linkArchived={loadLinks}
             />
         </div>

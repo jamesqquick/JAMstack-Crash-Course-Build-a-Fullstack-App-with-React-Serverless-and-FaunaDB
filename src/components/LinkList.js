@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import Reactfrom 'react';
+import LinkCard from './LinkCard';
 
 export default function LinkList({ links, linkDeleted, linkArchived }) {
     const deleteLink = async (id) => {
@@ -28,33 +29,31 @@ export default function LinkList({ links, linkDeleted, linkArchived }) {
 
     return (
         <>
-            <ul className="list-group mt-5">
+            <div className="mt-5">
+                <h2 className="my-4">Links</h2>
+
                 {links &&
-                    links.map((link) => (
-                        <li className="card my-2" key={link._id}>
-                            <div className="card-header">{link.name}</div>
-                            <div className="card-body">
-                                <p>{link.description}</p>
-                                <p>{link.url}</p>
-                            </div>
-                            <div className="card-footer flex">
-                                <button
-                                    className="btn btn-warning mr-2"
-                                    onClick={() => archiveLink(link)}
-                                >
-                                    Archive
-                                </button>
-                                <button
-                                    className="btn btn-danger"
-                                    onClick={() => deleteLink(link._id)}
-                                >
-                                    Delete
-                                </button>
-                                {link.archived.toString()}
-                            </div>
-                        </li>
-                    ))}
-            </ul>
+                    links
+                        .filter((link) => !link.archived)
+                        .map((link) => (
+                            <LinkCard
+                                link={link}
+                                deleteLink={deleteLink}
+                                archiveLink={archiveLink}
+                            />
+                        ))}
+                <h2 className="my-4">Archived Links</h2>
+                {links &&
+                    links
+                        .filter((link) => link.archived)
+                        .map((link) => (
+                            <LinkCard
+                                link={link}
+                                deleteLink={deleteLink}
+                                archiveLink={archiveLink}
+                            />
+                        ))}
+            </div>
         </>
     );
 }

@@ -1,59 +1,30 @@
 import React from 'react';
 import LinkCard from './LinkCard';
-
-export default function LinkList({ links, linkDeleted, linkArchived }) {
-    const deleteLink = async (id) => {
-        try {
-            await fetch('/.netlify/functions/deleteLink', {
-                method: 'DELETE',
-                body: JSON.stringify({ id }),
-            });
-            linkDeleted(id);
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    const archiveLink = async (link) => {
-        link.archived = !link.archived;
-        try {
-            await fetch('/.netlify/functions/updateLink', {
-                method: 'PUT',
-                body: JSON.stringify({ link }),
-            });
-            linkArchived();
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
+export default function LinkList({ links, refreshLinks }) {
     return (
-        <>
-            <div className="mt-5">
-                <h2 className="my-4">Links</h2>
-
-                {links &&
-                    links
-                        .filter((link) => !link.archived)
-                        .map((link) => (
-                            <LinkCard
-                                link={link}
-                                deleteLink={deleteLink}
-                                archiveLink={archiveLink}
-                            />
-                        ))}
-                <h2 className="my-4">Archived Links</h2>
-                {links &&
-                    links
-                        .filter((link) => link.archived)
-                        .map((link) => (
-                            <LinkCard
-                                link={link}
-                                deleteLink={deleteLink}
-                                archiveLink={archiveLink}
-                            />
-                        ))}
-            </div>
-        </>
+        <div>
+            <h2 className="my-4">Links</h2>
+            {links &&
+                links
+                    .filter((link) => !link.archived)
+                    .map((link) => (
+                        <LinkCard
+                            key={link._id}
+                            link={link}
+                            refreshLinks={refreshLinks}
+                        />
+                    ))}
+            <h2 className="my-4">Archived</h2>
+            {links &&
+                links
+                    .filter((link) => link.archived)
+                    .map((link) => (
+                        <LinkCard
+                            key={link._id}
+                            link={link}
+                            refreshLinks={refreshLinks}
+                        />
+                    ))}
+        </div>
     );
 }

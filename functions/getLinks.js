@@ -1,16 +1,15 @@
-const { GET_LINKS } = require('./utils/linkQueries');
+const axios = require('axios');
+require('dotenv').config();
+const { GET_LINKS } = require('./utils/linkQueries.js');
 const sendQuery = require('./utils/sendQuery');
-const formatResponse = require('./utils/formatResponse');
+const formattedResponse = require('./utils/formattedResponse');
 exports.handler = async (event) => {
     try {
         const res = await sendQuery(GET_LINKS);
         const data = res.allLinks.data;
-        return {
-            statusCode: 200,
-            body: JSON.stringify(data),
-        };
+        return formattedResponse(200, data);
     } catch (err) {
         console.error(err);
-        return formatResponse(500, { err: 'Something went wrong' });
+        return formattedResponse(500, { err: 'Something went wrong' });
     }
 };

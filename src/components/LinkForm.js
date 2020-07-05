@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function LinkForm({ linkCreated }) {
+export default function LinkForm({ refreshLinks }) {
     const [name, setName] = useState('');
     const [url, setUrl] = useState('');
     const [description, setDescription] = useState('');
@@ -19,18 +19,15 @@ export default function LinkForm({ linkCreated }) {
                 method: 'POST',
                 body: JSON.stringify(body),
             });
-            const createdLink = await res.json();
-            console.log(createdLink);
             resetForm();
-            linkCreated(createdLink);
-        } catch (err) {
-            console.error(err);
+            refreshLinks();
+        } catch (error) {
+            console.error(error);
         }
     };
-
     return (
         <div className="card">
-            <div className="card-header">Add A Link</div>
+            <div className="card-header">Add Link</div>
             <div className="card-body">
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">

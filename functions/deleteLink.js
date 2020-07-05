@@ -1,18 +1,24 @@
-const { DELETE_LINK } = require('./utils/linkQueries');
+const axios = require('axios');
+require('dotenv').config();
+const { DELETE_LINK } = require('./utils/linkQueries.js');
 const sendQuery = require('./utils/sendQuery');
-const formatResponse = require('./utils/formatResponse');
+const formattedResponse = require('./utils/formattedResponse');
 exports.handler = async (event) => {
     if (event.httpMethod !== 'DELETE') {
-        return formatResponse(405, { err: 'Method not supported' });
+        return formattedResponse(405, { err: 'Method not supported' });
     }
+
     const { id } = JSON.parse(event.body);
+    const variables = { id };
     try {
-        const { deleteLink: deletedLinkId } = await sendQuery(DELETE_LINK, {
-            id,
-        });
-        return formatResponse(200, deletedLinkId);
+        const { deleteLink: deletedLink } = await sendQuery(
+            DELETE_LINK,
+            variables
+        );
+
+        return formattedResponse(200, deletedLink);
     } catch (err) {
         console.error(err);
-        return formatResponse(500, { err: 'Something went wrong' });
+        return formattedResponse(500, { err: 'Something went wrong' });
     }
 };

@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import LinkForm from './components/LinkForm';
 import LinkList from './components/LinkList';
-
+import LinkForm from './components/LinkForm';
+//Grab all of the links
+//display all of the links
+//add delete and archive functionality
 function App() {
     const [links, setLinks] = useState([]);
-    useEffect(() => {
-        loadLinks();
-    }, []);
-
     const loadLinks = async () => {
         try {
             const res = await fetch('/.netlify/functions/getLinks');
@@ -18,19 +16,15 @@ function App() {
         }
     };
 
-    const addLink = (link) => {
-        setLinks((links) => [link, ...links]);
-    };
+    useEffect(() => {
+        loadLinks();
+    }, []);
+
     return (
         <div className="container py-5">
-            <h1 className="text-center mb-5">List O' Links</h1>
-            <LinkForm linkCreated={addLink} />
-
-            <LinkList
-                links={links}
-                linkDeleted={loadLinks}
-                linkArchived={loadLinks}
-            />
+            <h1 className="text-center mb-5">List O' Link</h1>
+            <LinkForm refreshLinks={loadLinks} />
+            <LinkList links={links} refreshLinks={loadLinks} />
         </div>
     );
 }

@@ -1,21 +1,20 @@
+# JAMstack Crash Course - Build a Fullstack App with React, Serverless, and FaunaDB
+
+This is the source code for the JAMstack Crash Course video on YouTube. It uses FaunaDB (with GraphQL), Netlify, and React to build a fullstack Link Saver application. By the end of the video, you will have a fully deployed application you can include on your portfolio and share with your friends.
+
+![demo](./images/example.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## How to Run
 
 In the project directory, you can run:
 
-### `npm start`
+### `netlify dev`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To run this app locally, you'll need to install the `netlify-cli` using `npm install -g netlify-cli`. The React app and the serverless functions will be served at [http://localhost:8888](http://localhost:8888).
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+You'll also need to add a `.env` file in the root directory and include `FAUNA_SECRET_KEY=<your secret key>`
 
 ### `npm run build`
 
@@ -27,42 +26,8 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
 ### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+You can connect your repository to Netlify for Contiuous Integration deployments. In the Netlify deploy configuration, tell Netlify to run `npm run build` as the command and then serve the `build` directory.
 
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+You'll also need to add `FAUNA_SECRET_KEY` environment variable inside of Netlify dashboard.
